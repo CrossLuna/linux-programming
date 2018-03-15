@@ -24,7 +24,6 @@ ps aux
 ps -aux
 ```
 * 一般格式
+單橫線 + 字母 [ `-r | -p | -l`]
 
-- + 字母 [ `-r | -p | -l`]
-
--- + 單字 [ `--help | --version` ]
+雙橫線 + 單字 [ `--help | --version` ]
