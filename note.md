@@ -68,3 +68,32 @@ ps -aux
     2. 向後？
     3. 移動到頭部？
     4. 移動到尾部？
+
+## Linux系統目錄結構
+
+### 根目錄表示方式 
+`/`
+
+### 根目錄下常見目錄
+* `/bin`: binary，二進制文件、可執行程序(綠色 `date` `ls`，青色)、shell命令
+
+    Q: 為什麼執行`ls`，檔案顯示有高亮，執行`/bin/ls`沒有？  
+    A: 執行`alias`，可以發現  
+    ```
+    alias ls='ls --color=auto
+    ```
+
+* `/dev`: device，在Linux下一切皆文件，硬體(硬碟、顯示卡、顯示器)也被抽象為文件
+* `/lib`: library，Linux運行時需要加載的動態庫，相當於Windows的dll  
+    `.so`表示動態庫，後面的數字表示版本號
+* `/mnt`: mount，手動的掛載目錄
+* `/media`: media，外設的自動掛載目錄
+* `/root`: root，Linux的超級用戶的家目錄
+* `/usr`: unix system resource，資源目錄
+    * `/usr/include` - Header files，裡面有`stdio.h`, `stdlib.h`
+    * 遊戲
+    * `/usr/local` - 用戶安裝的應用程序
+* `/etc`:
+* `/opt`:
+* `/home`:
+* `/tmp`:
