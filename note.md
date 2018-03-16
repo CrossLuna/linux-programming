@@ -157,3 +157,45 @@ ps -aux
     + `3231145`: 文件的大小，若是目錄則一律`4096`
     + `Nov 23 23:08`: 日期
     + `vimplus.tar.gz`: 文件名
+    + `-F` 如果是目錄，後面加一個`/`
+    + `alias ll='ls -alF'`
+
+### `cd`
+* 切換目錄
+* 如何進入到家目錄？
+    + `cd /home/kevin`
+    + `cd ~`
+    + `cd`
+* 在鄰近的兩個目錄(最行兩個)之間切換，適用於兩個目錄很長的情況
+    + `cd -`
+### `pwd`
+    當前路徑 print working directory
+### `mkdir`
+* 創建目錄 `mkdir dir`
+* 參數
+    + `-p`: 創建多級目錄
+        `mkdir -p aa/bb/cc`
+### `touch`
+* `touch filename`: 如果文件不存在，創建文件，若存在，更新文件的時間
+
+### `rmdir`
+* 刪除目錄，但僅能刪除空目錄
+### `rm`
+* 刪除文件或目錄
+    `rm -r dir`
+    `rm filename`
+* 參數
+    + `-r`: 遞迴刪除目錄(不管是否為空都要加)
+    + `-i`: 刪除的時候提示
+* 注意: 刪除之後，很難恢復
+### `cp`
+* 拷貝文件
+    + `cp sourcefile not_existing_file`: 自動創建`not_existing_file`並把`sourcefile`內容拷貝
+    + `cp sourcefile existing_file`: 覆蓋`existing_file`內容
+    + `cp sourcefile dir`: 拷貝並放到`dir`下
+    + `cp sourcedir desdir -r`: 把`sourcedir`整個拷貝到`desdir`底下(需要加上參數`-r`)
+    + `cp sourcedir not_existing_dir -r`: 創建 `not_existing_dir` 並把`sourcedir`中的內容拷貝到`not_existing_dir`中，不包括`sourcedir`(注意不同於路徑已經存在的狀況)
+### `mv`
+* 改名或移動文件
+
+### 查看文件內容
