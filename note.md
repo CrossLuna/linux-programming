@@ -151,7 +151,7 @@ ps -aux
         `c`: 字符設備 char(鍵盤、滑鼠)  
         `b`: 塊設備 block(USB、硬碟)  
     + `rwxrw-r--`: 讀寫權限，分別代表 user所有者(`rwx` 可讀可寫可執行), group所屬組用戶(`rw-` 可讀可寫), other其他人(`r--` 唯讀)
-    + `1`: 硬連接技術 hardlink
+    + `1`: 硬連接計數 hardlink
     + `kevin`(第一個): 文件所有者
     + `kevin`(第二個): 文件所屬群組
     + `3231145`: 文件的大小，若是目錄則一律`4096`
@@ -222,4 +222,41 @@ ps -aux
 #### `head` `tail`
 * 僅顯示頭部或尾部，默認10行，可以用`-5`改成5行
 
-### 軟硬鏈接
+### 軟硬連接 `ln`
+link，類似於Windows下的捷徑
+* 軟連接 - 快捷方式
+    + `ln -s filename(absolte dir) name_of_link`
+    + 例:  
+    ```
+    $ ln -s ~/linux_programming/programmer h.soft
+    $ ll
+    lrwxrwxrwx   1 crossluna crossluna   10 Mar 16 15:55 s.soft -> programmer*
+    $ ./h.soft
+    Programmer!
+    $ mv h.soft ..
+    $ ./../h.soft
+    Programmer!
+    ```
+    + 目錄也可以創建軟連接
+
+* 硬連接
+    + 相當於取了一個別名
+    + Linux是利用inode來定義文件，找到數據塊，硬連接取了個別名指到同一個inode，不佔用磁碟空間
+    + `ln filename(absolute or relative)  name_of_link`
+    + 例:  
+    ```
+    $ ln programmer h.hard
+    $ ll
+    -rwxrwxr-x   2 crossluna crossluna 9224 Mar 16 15:54 h.hard*
+    $ rm programmer
+    $ ll
+    -rwxrwxr-x   1 crossluna crossluna 9224 Mar 16 15:54 h.hard*
+    ```
+    + 用途
+        1. 創建一個新文件，硬連接計數為1
+        2. 給文件創建了硬連接，硬連接計數為2
+        3. 刪除一個硬連接，硬連接計數為1
+        4. 再刪除硬連接計數對應的文件，硬連接計數為0，成為廢棄的數據塊，OS就不再保護這一塊，也就是說，刪除文件只是解放了連接。
+    + 使用場景
+        - 磁碟上有個文件 `/home/kevin/hello`
+        - 在其他多個目錄中管理`hello`，並且能時時同步編輯
