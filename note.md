@@ -169,6 +169,7 @@ ps -aux
 * 在鄰近的兩個目錄(最行兩個)之間切換，適用於兩個目錄很長的情況
     + `cd -`
 ### `pwd`
+
     當前路徑 print working directory
 ### `mkdir`
 * 創建目錄 `mkdir dir`
@@ -196,6 +197,29 @@ ps -aux
     + `cp sourcedir desdir -r`: 把`sourcedir`整個拷貝到`desdir`底下(需要加上參數`-r`)
     + `cp sourcedir not_existing_dir -r`: 創建 `not_existing_dir` 並把`sourcedir`中的內容拷貝到`not_existing_dir`中，不包括`sourcedir`(注意不同於路徑已經存在的狀況)
 ### `mv`
-* 改名或移動文件
+* 改名或移動文件 `mv file1 file2`
+* 改名
+    + `mv existing_file not_existing_file`: 把檔案改名成`not_existing_file`
+    + `mv existing_dir not_existing_dir`: 改名目錄
+* 移動
+    + `mv file existing_dir`: 把文件移動到目錄中
+    + `mv existing_dir1 existing_dir2`: 把`dir1`移到`dir2`底下
+* 極端情況，發生覆蓋
+    + `mv existing_file1 existing_file2`: `file1`將會覆蓋`file2`
 
 ### 查看文件內容
+#### `cat`
+* `cat filename`: 把文件內容打印到終端機，適合用於內容比較少時
+#### `more`
+* `more filename`: 可以向下捲動，按`ENTER`向下瀏覽一行，`SPACE`可以往下捲一頁，無法往上捲，按`q`退出
+#### `less`
+* `less filename`  
+    + 向下滾動一行: `ENTER` `CTRL+N`
+    + 向上滾動一行: `CTRL+P`
+    + 向下翻頁: `SPACE` `PGDN`
+    + 向上翻頁: `PGup`
+    + 推出: `q`
+#### `head` `tail`
+* 僅顯示頭部或尾部，默認10行，可以用`-5`改成5行
+
+### 軟硬鏈接
