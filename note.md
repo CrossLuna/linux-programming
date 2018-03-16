@@ -93,7 +93,34 @@ ps -aux
     * `/usr/include` - Header files，裡面有`stdio.h`, `stdlib.h`
     * 遊戲
     * `/usr/local` - 用戶安裝的應用程序
-* `/etc`:
-* `/opt`:
-* `/home`:
-* `/tmp`:
+* `/etc`: 配置文件
+    * `/etc/passwd` - 當前Linux系統的用戶訊息
+    * `/etc/group` - 當前Linux系統的用戶組訊息
+    * `man 5 passwd`
+* `/opt`: 安裝第三方應用程序
+* `/home`: Linux 操作系統所有用戶的家目錄
+    * 用戶家目錄(宿主目錄)：如`/home/crossluna`
+* `/tmp`: 存放臨時文件，重新啟動電腦會清空
+
+## 目錄表示
+1. 相對路徑:從當前的目錄開始表示  
+    ```
+    ./zoo/animal/food
+    ```
+
+2. 絕對路徑
+    從根目錄`/` 開始表示
+    ```
+    /home/kevin/demo/1Day/zoo/animal/food
+    ```
+3. `.` 和 `..`
+    * `.` : 當前目錄
+    * `..` : 當前目錄的上一層目錄
+4. `kevin@ubuntu:~/demo/1Day$` 是什麼意思?
+    * `kevin`: 當前登錄的用戶
+    * `@`: at，在
+    * `ubuntu`: 安裝時指定的主機名稱
+    * `~`: 用戶的家目錄(宿主目錄)
+    * `~/demo/1Day`: 當前用戶的工作目錄
+    * `$`: 表示當前用戶是普通用戶
+    * `#`: 表示當前用戶是超級用戶
