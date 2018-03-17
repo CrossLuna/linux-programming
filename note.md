@@ -260,3 +260,102 @@ link，類似於Windows下的捷徑
     + 使用場景
         - 磁碟上有個文件 `/home/kevin/hello`
         - 在其他多個目錄中管理`hello`，並且能時時同步編輯
+
+## 05. 用戶權限、用戶和用戶組
+### 修改文件或目錄權限 `chmod`
+* 文字設定法 `chmod who [+|-|=]mode filename`
+    - who
+        + `u` - user 文件所有者
+        + `g` - group 文件所屬組
+        + `o` - other 其他人
+        + `a` - all 所有人(默認)
+    - `+|-|=` 增加|減少|覆蓋
+    - mode
+        + `r`: 讀
+        + `w`: 寫
+        + `x`: 執行
+        + `-`: 沒有任何權限
+    - **目錄必須有執行權限，否則進不去**
+    - 練習題 `rwxrwxrwx -- file`
+        1. 文件所有者和其他人減去讀寫權限  
+            `chmod uo-rw file`
+        2. 所有者增加讀權限，同組用戶減去執行權限  
+            `chmod u+r,g-x file`
+        3. 所有人減去權限  
+            `chmod a-w file`  
+
+* 數字設定法 `chmod [+|-|=]mode filename`
+    - mode，一個八進制的數
+        + `4`: r
+        + `2`: w
+        + `1`: x
+        + `0`: -
+    - 練習題 `--xrwx--x file`
+        1. 所有者和同組用戶的權限設置為`-wx`，其他只有權限1  
+            `chmod 331 file`
+        2. 文件權限`777`，給所有者和所屬組減去`r`  
+            `chmod -440 file`
+* 注意
+    ```
+    -rwxrwxrwx file
+    $chmod -w file
+    chmod file: 新權限為 r-xr-xrwx，非 r-xr-xr-x
+    ```
+    默認保護機制，如果真的要照此操作，使用  
+    `chmod a-w file`
+    
+### 修改文件所有者或所屬群組 `chown`
+* `chown new_owner filename`
+* `chown new_owner:new_group filename`
+* 怎麼找有哪些用戶，哪些組? `/etc/passwd` `/etc/group`
+* 例子  
+    ```
+    $ cat /etc/passwd
+    $ cat /etc/group
+    $ chown robin file
+    chown: 正在更改'file'的所有者，不允許的操作
+    $ sudo chown robin file
+    $ sudo chown kevin:luffy file 
+    ```
+### 修改文件所屬組 `chgrp`
+* `chgrp new_group filename`  
+    ```
+    $ sudo chgrp kevin file
+    ```
+
+## 06. 文件查找與檢索
+### 根據文件屬性查找 `find`
+* 文件名  
+    `find dir -name "filename"`
+    為什麼需要引號? 表達式的通配符，escape character
+* 文件類型  
+    `find dir -type filetype`
+        - **普通文件** `f`
+        - 目錄 `d`
+        - 符號連接 `l`
+        - 管道 `p`
+        - 套接字 `s`
+        - 字符設備 `c`
+        - 塊設備 `b`
+* 文件大小  
+    `find dir -size +10k` 查找大於10k的文檔
+        - `+10k` 大於10k
+        - `-10k` 小於10k
+        - `10k` 等於10k
+        - 單位: `k`小寫， `M`大寫
+        - 大於10k小於100k `-size +10k -size -100k`
+* 按日期  
+    - 創建日期 `-ctime [-n/+n]`
+        + `-n` n天以內
+        + `+n` n天以外
+        + `find dir -ctime -1`
+    - 修改日期 `-mtime [-n/+n]`
+    - 訪問日期 `-atime [-n/+n]`
+* 深度
+    + `find dir -maxdepth n(number of depth)`
+    + `find dir -mindepth n`
+    + 層數從`dir`開始算1
+* 高級查找
+### 根據文件內容查找 `grep`
+### 總結
+* `find dir param content`
