@@ -357,5 +357,15 @@ link，類似於Windows下的捷徑
     + 層數從`dir`開始算1
 * 高級查找
 ### 根據文件內容查找 `grep`
+* `grep -r(有目錄) "查找的內容" 搜索的路徑`  
+* 例子:搜索家目錄中帶有helloworld的文件 `grep -r "helloworld" ~`
+* `-n`: 搜索結果，加上行數
+
 ### 總結
 * `find dir param content`
+* `grep content param dir`，注意跟`find`順序不同
+
+## 07. 壓縮包管理
+### Linux下常見的壓縮格式
+### 常用壓縮命令
+### 總結
