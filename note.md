@@ -367,5 +367,47 @@ link，類似於Windows下的捷徑
 
 ## 07. 壓縮包管理
 ### Linux下常見的壓縮格式
+* `.gz` - `gzip`壓出來的
+* `.bz2` - `bzip2`壓出來的  
+然而`gzip`和`bzip2`不太好用，沒有打包功能
+
 ### 常用壓縮命令
+#### `tar`
+打包工具
+* 參數
+    + `c` 創建壓縮文件
+    + `x` 釋放壓縮文件(解壓縮)
+    + `v` verbose，打印提示
+    + `f` 指定壓縮包的名字
+    + `z` 使用gzip的方式壓縮文件，生成`xxx.tar.gz`
+    + `j` 使用bzip2的方式壓縮文件，生成`xxx.tar.bz2`
+* 用法   
+    `tar [params] [pkg_name] [orig_file1 orig_file2 ...]`  
+    `tar [params] [pkg_name] -C [obj_dir]`  
+    + 壓縮 `tar zcvf test.tar.gz file dir`
+    + 解壓縮 `tar zxvf test.tar.gz -C temp/` 
+
+#### `rar`
+* 需要安裝 `sudo apt-get install rar`
+* 壓縮 `rar a [pkg_name(w/o extension)] [orig_files]`
+    - 如果有**目錄**，要加參數 `-r`
+* 解壓縮 `rar x [pkg_name(w/o extension)] [obj_dir]`
+#### `zip`/`unzip`
+* 壓縮
+    `zip [params] [pkg_name] [orig files]`
+    - 如果有**目錄**，要加參數 `-r`
+* 解壓縮
+    `unzip [pkg_name] -d [obj_dir]`
 ### 總結
+* 壓縮 `tar/rar/zip [params] [pkg_name] [orig_file1 orig_file2 ...]`
+* 解壓縮 `tar/rar/unzip [params] [pkg_name] [-params] [obj_dir]`
+    + `rar` 解壓縮到指定目錄不需要指定參數
+    + `unzip` 不需要解壓參數
+
+## 08. 軟件安裝與卸載
+* 總是先跑 `sudo apt-get update` 更新來源訊息
+* 安裝`sudo apt-get install [pkg_name1] [pkg_name2] ...`
+* 卸載
+    + 移除包裹但是保留組態configuration `sudo apt-get remove [pkg_name]`
+    + 包裹和組態都移除 `sudo apt-get purge [pkg_name]`
+        - 然而家目錄`~`下的組態一般不受影響
