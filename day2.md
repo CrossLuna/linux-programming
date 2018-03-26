@@ -121,5 +121,28 @@
 
 
 ## 02. `gcc`相關
+### `gcc` 工作流程
+* 預處理 `-E`
+    - Macro替換
+    - 展開header files
+    - 去掉註釋
+    - `xxx.c` -> `xxx.i`，`.i`還是一個C文件
+* 編譯 `-S`
+    - `xxx.i` -> `xxx.s`，是一個Assembly文件
+* 彙編 `-c`
+    - `xxx.s` -> `xxx.o`，是binary文件
+* 連結 
+    - `xxx.o` -> `xxx`，可執行bianry
+### `gcc` 常用參數
+* `-v --version` 查看版本
+* `-I` 編譯時指定頭文件路徑
+* `-c` 將Assembly文件生成binary文件，得到`.o`，可以隱藏源代碼
+* `-o` 指定生成文件的名字
+* `-g` `gdb`調試的時候需要加，會添加很多調試信息
+* `-D` 在編譯時指定一個Macrio
+    - 使用場景: 測試程序時 `-D DEBUG`
+* `-Wall` 添加警告信息
+* `-On` 優化代碼，`n`是優化級別，只有0123
+
 ## 03. 靜態庫和動態庫
 ## 04. `makefile`
