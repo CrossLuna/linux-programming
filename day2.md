@@ -145,4 +145,39 @@
 * `-On` 優化代碼，`n`是優化級別，只有0123
 
 ## 03. 靜態庫和動態庫
-## 04. `makefile`
+### 庫是什麼?
+* Binary文件
+* 將源代碼 → Binary格式的源代碼
+* 加密
+### 庫製作出來之後，如何讓用戶使用?
+* header files
+* binary files 製作出來的庫
+### 靜態庫的製作和使用
+* 命名規則 `libxxx.a` 其中`xxx`是庫的名字
+* 製作步驟 
+    - 原材料`.c .cpp`
+    - `gcc a.c b.c -c `將`.c`文件生成`.o`
+    - `ar rcs libtest.a a.o b.o`，其中`ar`是個打包工具`archive`
+    - `nm libtest.a` 印出symbols，確認生成無誤
+* 庫的使用 `gcc main.c -I ./include/ -L ./lib/ -l mycalc -o app`
+    - `-L` 指定庫的路徑
+    - `-l` 指定庫的名字，去掉`lib`和`.a`
+### 動態庫的製作和使用
+* 命名規則 `libxxx.so`
+* 製作步驟 
+    - `gcc a.c b.c -c -fpic `將`.c`文件生成`.o`，記得加參數`-fpic`
+    - `gcc -shared -o libxxx.so a.o b.o` 打包
+* 庫的使用 `gcc main.c -I ./include/ -L ./lib/ -l mycalc -o app`
+* 動態庫無法加載
+    - ELF格式
+    - `ldd app` 查看連結
+    - 對於ELF格式的可執行程序，是由`ld-linux.so*`來完成的，他先後搜索ELF文件的`PT_RPATH`段 → 環境變量`LD_LIBRARY_PATH` → `/etc/ld.so.cache`文件列表 → `/lib/` `/usr/lib`目錄找到庫文件後載入內存 
+    - 解法一：使用環境變量 `LD_LIBRARY_PATH`
+        + 臨時設置 - 在terminal `export LD_LIBRARY_PATH=[dynamic library path]:$LD_LIBRARY_PATH`
+        + 永久設置-用戶級別 把上面那行寫到`~/.bashrc`，再重啟終端或是執行`source ~/.bashrc`
+        + 永久設置-系統級別 `/etc/profile`，重啟電腦或是 `source /etc/profile`
+    - 解法二：更新`/etc/ld.so.cache`
+        + 找到一個配置文件 `/etc/ld/so/conf`
+        + 把動態庫的絕對路徑寫到裡面
+        + 執行`sudo ldconfig -v`
+* 知識點擴展 `dlopen` `dlclose` `dlsym`
