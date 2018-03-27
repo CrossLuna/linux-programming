@@ -1,4 +1,4 @@
-## 複習
+## 00. 複習
 ### `vim`
 * 三個模式: 命令、編輯、末行
 ### `gcc`
@@ -28,7 +28,7 @@
 * 優缺點?  
 
 
-## makefile
+## 01. `makefile`
 ### `make`
 * `gcc` - 編譯器
 * `make` - Linux自帶的構建器，構建的規則在makefile中
@@ -131,4 +131,38 @@ $(target):$(obj)
     gcc $(obj) -o $(target) 
 %.o:%.c
     gcc -c $< -o $@
+```
+缺點: 不能清理項目
+
+#### 第五個版本
+* 讓`make`生成不是終極目標的目標 `make 目標名`
+* 編寫一個清理項目的規則，強制執行`-f`  
+    ```
+    clean:
+    -rm $(obj) $(target) -f 
+    ```
+* `rm`之前加上減號表示，如果遇到錯誤，仍繼續執行剩下命令
+* 聲明偽目標 `.PHONY:clean`，要不如果遇到一個叫做`clean`的檔，根據時間標籤規則，不會執行任何東西，聲明偽目標可以避免時間標籤檢查
+
+```
+src = $(wildcard ./*.c)
+obj = $(patsubst %.c, %.o, $(src))
+target = app
+$(target):$(obj)
+    gcc $(obj) -o $(target) 
+%.o:%.c
+    gcc -c $< -o $@
+.PHONY:clean
+clean:
+    -rm $(obj) $(target) -f 
+```
+
+### 練習題
+1. 編寫`makefile` [補圖]  
+    在`plus`目錄下有兩個目錄`include`和`src`，請在`plus`目錄下編寫`makefile`，編譯`src`目錄下的源文件
+2. `plus`有兩個不相關的文件 `a.c b.c`
+    + 編寫`makefile`，`make`之後生成`a`和`b`
+
+```
+
 ```
